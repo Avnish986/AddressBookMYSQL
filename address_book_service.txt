@@ -1,0 +1,273 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| payroll_service    |
+| payroll_sevice     |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.08 sec)
+
+mysql> create database address_book_service;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use address_book_service;
+Database changed
+
+mysql> select database();
++----------------------+
+| database()           |
++----------------------+
+| address_book_service |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> create table address_book(
+    -> id int unsigned not null auto_increment,
+    -> first_name varchar(150) not null,
+    -> last_name varchar(150) not null,
+    -> address varchar(150) not null,
+    -> city varchar(150) not null,
+    -> state varchar(150) not null,
+    -> zip int signed not null,
+    -> phone_no varchar(12) not null,
+    -> email varchar(150) not null,
+    -> primary key (id)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> describe address_book;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int unsigned | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(150) | NO   |     | NULL    |                |
+| last_name  | varchar(150) | NO   |     | NULL    |                |
+| address    | varchar(150) | NO   |     | NULL    |                |
+| city       | varchar(150) | NO   |     | NULL    |                |
+| state      | varchar(150) | NO   |     | NULL    |                |
+| zip        | int          | NO   |     | NULL    |                |
+| phone_no   | varchar(12)  | NO   |     | NULL    |                |
+| email      | varchar(150) | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+9 rows in set (0.02 sec)
+
+mysql> insert into address_book (first_name, last_name, address, city, state, zip, phone_no, email )values
+    -> ('avnish', 'gupta', '1234 street', 'btd', 'pnb', 151001, '9999999999', 'avnish@gmail.com'),
+    -> ('test', 'test', '12345 street', 'pta', 'pnb', 147001, '9999999998', 'test@gmail.com'),
+    -> ('test1', 'test1', '123456 street', 'abc', 'del', 147002, '9999999997', 'test1@gmail.com');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from address_book;
++----+------------+-----------+---------------+------+-------+--------+------------+------------------+
+| id | first_name | last_name | address       | city | state | zip    | phone_no   | email            |
++----+------------+-----------+---------------+------+-------+--------+------------+------------------+
+|  1 | avnish     | gupta     | 1234 street   | btd  | pnb   | 151001 | 9999999999 | avnish@gmail.com |
+|  2 | test       | test      | 12345 street  | pta  | pnb   | 147001 | 9999999998 | test@gmail.com   |
+|  3 | test1      | test1     | 123456 street | abc  | del   | 147002 | 9999999997 | test1@gmail.com  |
++----+------------+-----------+---------------+------+-------+--------+------------+------------------+
+3 rows in set (0.01 sec)
+
+mysql> update address_book set city='bathinda' where first_name='avnish';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from address_book;
++----+------------+-----------+---------------+----------+-------+--------+------------+------------------+
+| id | first_name | last_name | address       | city     | state | zip    | phone_no   | email            |
++----+------------+-----------+---------------+----------+-------+--------+------------+------------------+
+|  1 | avnish     | gupta     | 1234 street   | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com |
+|  2 | test       | test      | 12345 street  | pta      | pnb   | 147001 | 9999999998 | test@gmail.com   |
+|  3 | test1      | test1     | 123456 street | abc      | del   | 147002 | 9999999997 | test1@gmail.com  |
++----+------------+-----------+---------------+----------+-------+--------+------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> update address_book set city='patiala' where first_name='test';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update address_book set city='gurgaon' where first_name='test1';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from address_book;
++----+------------+-----------+---------------+----------+-------+--------+------------+------------------+
+| id | first_name | last_name | address       | city     | state | zip    | phone_no   | email            |
++----+------------+-----------+---------------+----------+-------+--------+------------+------------------+
+|  1 | avnish     | gupta     | 1234 street   | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com |
+|  2 | test       | test      | 12345 street  | patiala  | pnb   | 147001 | 9999999998 | test@gmail.com   |
+|  3 | test1      | test1     | 123456 street | gurgaon  | del   | 147002 | 9999999997 | test1@gmail.com  |
++----+------------+-----------+---------------+----------+-------+--------+------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> update address_book set state='hr' where first_name='test1';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from address_book;
++----+------------+-----------+---------------+----------+-------+--------+------------+------------------+
+| id | first_name | last_name | address       | city     | state | zip    | phone_no   | email            |
++----+------------+-----------+---------------+----------+-------+--------+------------+------------------+
+|  1 | avnish     | gupta     | 1234 street   | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com |
+|  2 | test       | test      | 12345 street  | patiala  | pnb   | 147001 | 9999999998 | test@gmail.com   |
+|  3 | test1      | test1     | 123456 street | gurgaon  | hr    | 147002 | 9999999997 | test1@gmail.com  |
++----+------------+-----------+---------------+----------+-------+--------+------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> delete from address_book where first_name='test1';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from address_book;
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+| id | first_name | last_name | address      | city     | state | zip    | phone_no   | email            |
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+|  1 | avnish     | gupta     | 1234 street  | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com |
+|  2 | test       | test      | 12345 street | patiala  | pnb   | 147001 | 9999999998 | test@gmail.com   |
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select first_name,last_name from address_book where city='bathinda';
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| avnish     | gupta     |
++------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select first_name,last_name from address_book where state='pnb';
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| avnish     | gupta     |
+| test       | test      |
++------------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select city,count(first_name) from address_book group by city;
++----------+-------------------+
+| city     | count(first_name) |
++----------+-------------------+
+| bathinda |                 1 |
+| patiala  |                 1 |
++----------+-------------------+
+2 rows in set (0.00 sec)
+
+mysql> select state,count(first_name) from address_book group by state;
++-------+-------------------+
+| state | count(first_name) |
++-------+-------------------+
+| pnb   |                 2 |
++-------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from address_book order by state;
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+| id | first_name | last_name | address      | city     | state | zip    | phone_no   | email            |
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+|  1 | avnish     | gupta     | 1234 street  | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com |
+|  2 | test       | test      | 12345 street | patiala  | pnb   | 147001 | 9999999998 | test@gmail.com   |
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into address_book (first_name, last_name, address, city, state, zip, phone_no, email )values
+    -> ('best', 'best', '12345 street', 'pta', 'pnb', 147004, '9999999996', 'best@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from address_book order by state;
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+| id | first_name | last_name | address      | city     | state | zip    | phone_no   | email            |
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+|  1 | avnish     | gupta     | 1234 street  | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com |
+|  2 | test       | test      | 12345 street | patiala  | pnb   | 147001 | 9999999998 | test@gmail.com   |
+|  4 | best       | best      | 12345 street | pta      | pnb   | 147004 | 9999999996 | best@gmail.com   |
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from address_book where state='pnb' order by first_name;
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+| id | first_name | last_name | address      | city     | state | zip    | phone_no   | email            |
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+|  1 | avnish     | gupta     | 1234 street  | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com |
+|  4 | best       | best      | 12345 street | pta      | pnb   | 147004 | 9999999996 | best@gmail.com   |
+|  2 | test       | test      | 12345 street | patiala  | pnb   | 147001 | 9999999998 | test@gmail.com   |
++----+------------+-----------+--------------+----------+-------+--------+------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table address_book add type varchar(150) after last_name;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe address_book;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int unsigned | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(150) | NO   |     | NULL    |                |
+| last_name  | varchar(150) | NO   |     | NULL    |                |
+| type       | varchar(150) | YES  |     | NULL    |                |
+| address    | varchar(150) | NO   |     | NULL    |                |
+| city       | varchar(150) | NO   |     | NULL    |                |
+| state      | varchar(150) | NO   |     | NULL    |                |
+| zip        | int          | NO   |     | NULL    |                |
+| phone_no   | varchar(12)  | NO   |     | NULL    |                |
+| email      | varchar(150) | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+10 rows in set (0.01 sec)
+
+mysql> update address_book set type='family' where first_name='avnish';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update address_book set type='friends' where first_name='best';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update address_book set type='profession' where first_name='test';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from address_book;
++----+------------+-----------+------------+--------------+----------+-------+--------+------------+------------------+
+| id | first_name | last_name | type       | address      | city     | state | zip    | phone_no   | email            |
++----+------------+-----------+------------+--------------+----------+-------+--------+------------+------------------+
+|  1 | avnish     | gupta     | family     | 1234 street  | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com |
+|  2 | test       | test      | profession | 12345 street | patiala  | pnb   | 147001 | 9999999998 | test@gmail.com   |
+|  4 | best       | best      | friends    | 12345 street | pta      | pnb   | 147004 | 9999999996 | best@gmail.com   |
++----+------------+-----------+------------+--------------+----------+-------+--------+------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> select type,count(type) from address_book group by type;
++------------+-------------+
+| type       | count(type) |
++------------+-------------+
+| family     |           1 |
+| profession |           1 |
+| friends    |           1 |
++------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into address_book (first_name, last_name,type, address, city, state, zip, phone_no, email )values
+    -> ('ashutosh', 'aggarwal','friends', '1234 street', 'amritsar', 'pnb', 143001, '9999999995', 'ahsutosh@gmail.com'),
+    -> ('abc', 'gupta','family', '1234 street', 'bathinda', 'pnb', 151001, '9999999994', 'abc@gmail.com');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from address_book;
++----+------------+-----------+------------+--------------+----------+-------+--------+------------+--------------------+
+| id | first_name | last_name | type       | address      | city     | state | zip    | phone_no   | email              |
++----+------------+-----------+------------+--------------+----------+-------+--------+------------+--------------------+
+|  1 | avnish     | gupta     | family     | 1234 street  | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com   |
+|  2 | test       | test      | profession | 12345 street | patiala  | pnb   | 147001 | 9999999998 | test@gmail.com     |
+|  4 | best       | best      | friends    | 12345 street | pta      | pnb   | 147004 | 9999999996 | best@gmail.com     |
+|  5 | ashutosh   | aggarwal  | friends    | 1234 street  | amritsar | pnb   | 143001 | 9999999995 | ahsutosh@gmail.com |
+|  6 | abc        | gupta     | family     | 1234 street  | bathinda | pnb   | 151001 | 9999999994 | abc@gmail.com      |
++----+------------+-----------+------------+--------------+----------+-------+--------+------------+--------------------+
+5 rows in set (0.00 sec)
