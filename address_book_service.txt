@@ -271,3 +271,72 @@ mysql> select * from address_book;
 |  6 | abc        | gupta     | family     | 1234 street  | bathinda | pnb   | 151001 | 9999999994 | abc@gmail.com      |
 +----+------------+-----------+------------+--------------+----------+-------+--------+------------+--------------------+
 5 rows in set (0.00 sec)
+
+mysql> show tables;
++--------------------------------+
+| Tables_in_address_book_service |
++--------------------------------+
+| address_book                   |
++--------------------------------+
+1 row in set (0.04 sec)
+
+mysql> select * from address_book;
++----+------------+-----------+------------+--------------+----------+-------+--------+------------+--------------------+
+| id | first_name | last_name | type       | address      | city     | state | zip    | phone_no   | email              |
++----+------------+-----------+------------+--------------+----------+-------+--------+------------+--------------------+
+|  1 | avnish     | gupta     | family     | 1234 street  | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com   |
+|  2 | test       | test      | profession | 12345 street | patiala  | pnb   | 147001 | 9999999998 | test@gmail.com     |
+|  4 | best       | best      | friends    | 12345 street | pta      | pnb   | 147004 | 9999999996 | best@gmail.com     |
+|  5 | ashutosh   | aggarwal  | friends    | 1234 street  | amritsar | pnb   | 143001 | 9999999995 | ahsutosh@gmail.com |
+|  6 | abc        | gupta     | family     | 1234 street  | bathinda | pnb   | 151001 | 9999999994 | abc@gmail.com      |
++----+------------+-----------+------------+--------------+----------+-------+--------+------------+--------------------+
+5 rows in set (0.01 sec)
+
+mysql> alter table address_book drop column type;
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from address_book;
++----+------------+-----------+--------------+----------+-------+--------+------------+--------------------+
+| id | first_name | last_name | address      | city     | state | zip    | phone_no   | email              |
++----+------------+-----------+--------------+----------+-------+--------+------------+--------------------+
+|  1 | avnish     | gupta     | 1234 street  | bathinda | pnb   | 151001 | 9999999999 | avnish@gmail.com   |
+|  2 | test       | test      | 12345 street | patiala  | pnb   | 147001 | 9999999998 | test@gmail.com     |
+|  4 | best       | best      | 12345 street | pta      | pnb   | 147004 | 9999999996 | best@gmail.com     |
+|  5 | ashutosh   | aggarwal  | 1234 street  | amritsar | pnb   | 143001 | 9999999995 | ahsutosh@gmail.com |
+|  6 | abc        | gupta     | 1234 street  | bathinda | pnb   | 151001 | 9999999994 | abc@gmail.com      |
++----+------------+-----------+--------------+----------+-------+--------+------------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table type(
+    -> id int unsigned not null,
+    -> type varchar(250) not null
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into type(id,type) values
+    -> (1,'family'),
+    -> (2,'family'),
+    -> (4,'friends'),
+    -> (2,'profession'),
+    -> (5,'friends'),
+    -> (5,'profession'),
+    -> (6,'family');
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from type;
++----+------------+
+| id | type       |
++----+------------+
+|  1 | family     |
+|  2 | family     |
+|  4 | friends    |
+|  2 | profession |
+|  5 | friends    |
+|  5 | profession |
+|  6 | family     |
++----+------------+
+7 rows in set (0.00 sec)
+
+mysql>
